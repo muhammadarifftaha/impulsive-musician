@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import "bootstrap";
+
+$bg-color: (
+  "default": #f9f5eb,
+  "blue": #607eaa,
+  "darkblue": #1c3879,
+);
+
+$heights: (
+  "10": 10%,
+  "20": 20%,
+  "30": 30%,
+  "40": 40%,
+  "60": 60%,
+  "70": 70%,
+  "80": 80%,
+  "90": 90%,
+);
+
+$widths: (
+  "10": 10%,
+  "20": 20%,
+  "30": 30%,
+  "40": 40%,
+  "60": 60%,
+  "70": 70%,
+  "80": 80%,
+  "90": 90%,
+);
+
+@each $name, $percent in $heights {
+  .h-#{$name} {
+    height: $percent !important;
+  }
+}
+
+@each $name, $percent in $widths {
+  .w-#{$name} {
+    width: $percent !important;
+  }
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: map-get($bg-color, "default");
+  min-height: 100vh;
+  position: relative;
+}
+
+.App {
+  text-align: center;
+}
+
+.navbar {
+  background: map-get($bg-color, "darkblue");
+}
+
+.bg-overlay {
+  background: linear-gradient(rgba(56, 56, 56, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../public/assets/images/hero-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  color: #fff;
+}
+
+#cta-section {
+  background: map-get($bg-color, "blue");
+}
+
+#footer {
+  background: map-get($bg-color, "darkblue");
+}
+
+.card.signin,
+.card.signup {
+  flex-direction: column;
+  gap: 5rem;
+  padding: 5rem 3rem;
+  margin: 2em 0;
+}
+
+.card.signin > div,
+.card.signup > div {
+  flex: 1 1 100%;
+}
+
+.err-text {
+  color: red;
+}
+
+.dashboard {
+  width: 90%;
+  height: 90%;
+  justify-content: flex-start;
+  flex: 1 1 80%;
+  align-items: center;
+  padding: 5em 3em;
+  margin: 1em 0;
+  gap: 1em;
+}
+
+.creation-data {
+  flex-direction: column;
+  gap: 1em;
+}
+
+#data_btn {
+  align-self: center;
+}
+
+#creation-display {
+  gap: 5%;
+}
+
+/* #endregion */
+
+#selected-chords {
+  width: 45%;
+}
+
+.btn.btn-outline-danger {
+  background-color: #fff;
+}
+
+#chord-progression > li.playing {
+  background-color: #607eaa;
+}
+
+.chords-select > #tab-content > .tab-pane.active {
+  display: flex;
+  gap: 1em;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+.chords-select > #tab-content > .tab-pane.active > div {
+  flex: 0 0 18%;
+}
+
+#view {
+  min-height: max-content;
+}
