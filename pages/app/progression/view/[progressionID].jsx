@@ -46,7 +46,7 @@ export default function Edit() {
   const [audioPlayer, setAudioPlayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
 
-  async function fetchData(context) {
+  async function fetchData() {
     const data = await axios({
       url: `http://localhost:3000/api/app/progression/${progressionID}`,
       method: "GET",
@@ -82,19 +82,13 @@ export default function Edit() {
     };
   }
 
-  // useEffect(() => {
-  //   Soundfont.instrument(new AudioContext(), progressionData.instrument, {
-  //     gain: 10,
-  //   }).then((player) => setAudioPlayer(player));
-  // }, []);
-
-  // useEffect(() => {
-  //   Soundfont.instrument(new AudioContext(), progressionData.instrument, {
-  //     gain: 10,
-  //   }).then((player) => {
-  //     setAudioPlayer(player);
-  //   });
-  // }, [progressionData.instrument]);
+  useEffect(() => {
+    Soundfont.instrument(new AudioContext(), progressionData.instrument, {
+      gain: 10,
+    }).then((player) => {
+      setAudioPlayer(player);
+    });
+  }, [progressionData.instrument]);
 
   useEffect(() => {
     if (!loaded) {

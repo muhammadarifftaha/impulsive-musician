@@ -146,7 +146,7 @@ export default function Register() {
     if (session) {
       router.push("/app");
     }
-  }, [session]);
+  }, [router, session]);
 
   return (
     <>

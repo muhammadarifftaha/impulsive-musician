@@ -197,14 +197,6 @@ export default function Create() {
   }
 
   useEffect(() => {
-    Soundfont.instrument(new AudioContext(), progressionData.instrument, {
-      gain: 10,
-    }).then((player) => {
-      setAudioPlayer(player);
-    });
-  }, []);
-
-  useEffect(() => {
     const confirmationMessage = "Changes you made may not be saved.";
     const beforeUnloadHandler = (e) => {
       (e || window.event).returnValue = confirmationMessage;

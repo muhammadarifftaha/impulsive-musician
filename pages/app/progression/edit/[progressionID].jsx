@@ -198,24 +198,23 @@ export default function Edit() {
     });
   }
 
-  async function fetchProgression() {
-    return await axios({
-      url: `/api/app/progression/${progressionID}`,
-      method: "GET",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          return res.data;
-        }
-      })
-
-      .catch((err) => {
-        console.log(err);
-        displayToasts("ServerError");
-      });
-  }
-
   useEffect(() => {
+    async function fetchProgression() {
+      return await axios({
+        url: `/api/app/progression/${progressionID}`,
+        method: "GET",
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            return res.data;
+          }
+        })
+
+        .catch((err) => {
+          console.log(err);
+          displayToasts("ServerError");
+        });
+    }
     if (session && reload && progressionData.uuid === "") {
       fetchProgression().then((data) => {
         const { name, tempo, instrument, uuid, chords } = data;
@@ -228,13 +227,7 @@ export default function Edit() {
         setSelectedChords(chords);
       });
     }
-  }, [session, reload, progressionData.uuid]);
-
-  useEffect(() => {
-    Soundfont.instrument(new AudioContext(), progressionData.instrument, {
-      gain: 10,
-    }).then((player) => setAudioPlayer(player));
-  }, []);
+  }, [session, reload, progressionData.uuid, progressionID]);
 
   useEffect(() => {
     const confirmationMessage = "Changes you made may not be saved.";
