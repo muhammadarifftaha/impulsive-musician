@@ -14,9 +14,9 @@ import ViewChordCards from "../../../../components/viewChordCards";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Player from "../../../../components/player";
-const Soundfont = require("soundfont-player");
 
-export default function Edit() {
+function Edit() {
+  const Soundfont = require("soundfont-player");
   const router = useRouter();
   const { progressionID } = router.query;
   const [selectedChords, setSelectedChords] = useState([
@@ -218,3 +218,5 @@ export default function Edit() {
     </>
   );
 }
+
+export default Edit;
