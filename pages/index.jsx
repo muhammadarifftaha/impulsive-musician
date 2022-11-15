@@ -1,9 +1,21 @@
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import landingLogo from "../public/assets/images/impulsive-logo.png";
 
 export default function Home() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session || session !== null) {
+      router.push("/app");
+    }
+  }, [router, session]);
   return (
     <>
       <Head>
@@ -14,9 +26,9 @@ export default function Home() {
         <Container fluid className="p-0 m-0">
           <Container
             fluid
-            className="hero bg-overlay d-flex justify-content-center align-items-center text-center p-0 m-0 vh-100"
+            className="hero bg-overlay d-flex justify-content-center align-items-center text-center p-0 m-0 h-100"
           >
-            <Container className="d-flex flex-column justify-content-center align-items-center">
+            <Container className="d-flex flex-column justify-content-center align-items-center my-5">
               <Image
                 src={landingLogo}
                 alt="Impulsive Musician Logo"
@@ -24,7 +36,7 @@ export default function Home() {
               />
               <h1>Impulsive Musician</h1>
               <h3>Create. Save. Inspire.</h3>
-              <Container className="w-70">
+              <Container className="w-70 mb-4">
                 <p className=" mb-2">
                   The perfect app for the impulsive musician. Create and save
                   new chord progressions on the go!
@@ -32,16 +44,20 @@ export default function Home() {
                 <h6>What are you waiting for? Sign up now!</h6>
 
                 <Container className="d-flex gap-2 flex-column flex-lg-row justify-content-center mt-4">
-                  <Button variant="primary" size="lg" className="flex-fill">
-                    Sign Up!
-                  </Button>
-                  <Button
-                    variant="outline-light"
-                    size="lg"
-                    className="flex-fill"
-                  >
-                    Sign In
-                  </Button>
+                  <Link href="/users" passHref legacyBehavior>
+                    <Button variant="primary" size="lg" className="flex-fill">
+                      Sign Up!
+                    </Button>
+                  </Link>
+                  <Link href="/users" passHref legacyBehavior>
+                    <Button
+                      variant="outline-light"
+                      size="lg"
+                      className="flex-fill"
+                    >
+                      Sign In
+                    </Button>
+                  </Link>
                 </Container>
               </Container>
             </Container>

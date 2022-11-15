@@ -8,14 +8,18 @@ import {
   faArrowRightFromBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "../public/assets/images/impulsive-logo-nav.png";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   function userLoggedIn() {
     setLoggedIn(true);
@@ -25,11 +29,19 @@ export default function Header() {
     setLoggedIn(false);
   }
 
+  useEffect(() => {
+    if (!session) {
+      userLoggedOut();
+    } else {
+      userLoggedIn();
+    }
+  }, [session]);
+
   return (
     <Navbar
       expand="lg"
       variant="dark"
-      className="bg-darkblue position-absolute top-0 w-100"
+      className="bg-darkblue w-100"
       collapseOnSelect
     >
       <Container fluid className="mx-4 d-flex justify-content-between">
@@ -59,7 +71,7 @@ export default function Header() {
                   </Link>
                 </Nav.Item>
                 <Nav.Item
-                  class="d-flex align-items-center"
+                  className="d-flex align-items-center"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
                   data-bs-title="Currently Unavailable. Work In Progress."
@@ -72,12 +84,18 @@ export default function Header() {
                   </Link>
                 </Nav.Item>
                 <Nav.Item className="d-flex align-items-center">
-                  <Link href="/logout" passHref legacyBehavior>
-                    <Nav.Link className="">
-                      <FontAwesomeIcon icon={faArrowRightFromBracket} /> &nbsp;
-                      Sign Out
-                    </Nav.Link>
-                  </Link>
+                  <Nav.Link
+                    className=""
+                    onClick={() => {
+                      signOut({
+                        redirect: false,
+                      });
+                      router.push("/users");
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faArrowRightFromBracket} /> &nbsp;
+                    Sign Out
+                  </Nav.Link>
                 </Nav.Item>
               </>
             ) : (
@@ -90,14 +108,14 @@ export default function Header() {
                   </Link>
                 </Nav.Item>
                 <Nav.Item className="d-flex align-items-center">
-                  <Link href="/register" passHref legacyBehavior>
+                  <Link href="/users" passHref legacyBehavior>
                     <Nav.Link className="">
                       <FontAwesomeIcon icon={faUserPlus} /> &nbsp; Register
                     </Nav.Link>
                   </Link>
                 </Nav.Item>
                 <Nav.Item className="d-flex align-items-center">
-                  <Link href="/login" passHref legacyBehavior>
+                  <Link href="/users" passHref legacyBehavior>
                     <Nav.Link className="">
                       <FontAwesomeIcon icon={faArrowRightToBracket} />
                       &nbsp; Sign In

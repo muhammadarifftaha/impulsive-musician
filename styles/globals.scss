@@ -60,6 +60,11 @@ body {
   background: map-get($bg-color, "darkblue");
 }
 
+#footer {
+  background: map-get($bg-color, "darkblue");
+}
+
+// HOME PAGE
 .bg-overlay {
   background: linear-gradient(rgba(56, 56, 56, 0.7), rgba(0, 0, 0, 0.7)),
     url("../public/assets/images/hero-bg.jpg");
@@ -73,75 +78,177 @@ body {
   background: map-get($bg-color, "blue");
 }
 
-#footer {
-  background: map-get($bg-color, "darkblue");
-}
+// USERS PAGE
 
-.card.signin,
-.card.signup {
-  flex-direction: column;
-  gap: 5rem;
-  padding: 5rem 3rem;
-  margin: 2em 0;
-}
-
-.card.signin > div,
-.card.signup > div {
+#users-container {
+  background: url("../public/assets/images/users-bg.jpg") center / cover
+    no-repeat;
+  padding: 0;
   flex: 1 1 100%;
+
+  & > Container {
+    width: 40%;
+    height: 100% !important;
+    background: #f9f5eb;
+    margin: 0;
+    padding: 0;
+  }
+
+  #login-form,
+  #register-form {
+    .btn.btn-outline-danger {
+      background-color: transparent;
+
+      &:hover {
+        background-color: var(--bs-btn-hover-bg);
+      }
+    }
+  }
 }
 
-.err-text {
-  color: red;
+// App Progressions
+#progression-title {
+  width: auto;
+  & input {
+    font-weight: 500;
+    font-size: x-large;
+
+    &:disabled {
+      background-color: transparent;
+      border: 0;
+
+      &:hover {
+        color: rgb(97, 97, 97);
+      }
+    }
+  }
 }
 
-.dashboard {
-  width: 90%;
-  height: 90%;
-  justify-content: flex-start;
-  flex: 1 1 80%;
-  align-items: center;
-  padding: 5em 3em;
-  margin: 1em 0;
-  gap: 1em;
+.chord-list-btns {
+  width: 20%;
 }
 
-.creation-data {
-  flex-direction: column;
-  gap: 1em;
+#progression-page {
+  & > .card {
+    padding: 3em;
+  }
+
+  .nav-tabs {
+    width: 100%;
+    & li {
+      flex: 1 1;
+      & > button {
+        width: 100%;
+      }
+    }
+  }
 }
 
-#data_btn {
-  align-self: center;
+@include media-breakpoint-down(lg) {
+  #progression-page {
+    & > .card {
+      padding: 1.5em;
+    }
+
+    .tab-content {
+      width: 100%;
+    }
+
+    #player-card {
+      width: 100%;
+      & .vstack {
+        width: 100%;
+        & > button,
+        & > div {
+          flex: 1 1;
+        }
+
+        & > hr {
+          height: 100% !important;
+          border: 0;
+          border-right: 1px solid;
+        }
+      }
+    }
+
+    #chord-list {
+      & > * {
+        width: 45%;
+      }
+    }
+
+    #progression-title {
+      width: auto;
+      & input {
+        font-weight: 500;
+        font-size: larger;
+
+        &:disabled {
+          background-color: transparent;
+          border: 0;
+
+          &:hover {
+            color: rgb(97, 97, 97);
+          }
+        }
+      }
+    }
+
+    .nav-tabs {
+      width: 90%;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+    }
+
+    .selected-chords {
+      flex-direction: row;
+    }
+  }
 }
 
-#creation-display {
-  gap: 5%;
-}
+@include media-breakpoint-down(md) {
+  #users-container {
+    width: 90% !important;
+  }
 
-/* #endregion */
+  #progression-page {
+    & > .card {
+      padding: 1.5em;
+    }
+    .tab-content {
+      width: 100%;
+    }
+    #instrument-label {
+      display: none;
 
-#selected-chords {
-  width: 45%;
-}
+      & + select {
+        border-top-left-radius: 0.375rem;
+        border-bottom-left-radius: 0.375rem;
+        border-radius: 0.375rem;
+      }
+    }
+    .chord-list-btns {
+      width: 100%;
+    }
+    #progression-title {
+      width: auto;
+      & input {
+        font-weight: 500;
+        font-size: larger;
 
-.btn.btn-outline-danger {
-  background-color: #fff;
-}
+        &:disabled {
+          background-color: transparent;
+          border: 0;
 
-#chord-progression > li.playing {
-  background-color: #607eaa;
-}
+          &:hover {
+            color: rgb(97, 97, 97);
+          }
+        }
+      }
+    }
+  }
 
-.chords-select > #tab-content > .tab-pane.active {
-  display: flex;
-  gap: 1em;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-}
-.chords-select > #tab-content > .tab-pane.active > div {
-  flex: 0 0 18%;
-}
-
-#view {
-  min-height: max-content;
+  .toast-container {
+    width: 75%;
+  }
 }
