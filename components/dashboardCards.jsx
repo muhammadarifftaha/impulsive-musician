@@ -50,7 +50,7 @@ function DashboardCards({ progressionData, setReload }) {
         <Card.Footer>
           <Dropdown as={ButtonGroup}>
             <Link
-              href={`/app/progressions/view/${progression.uuid}`}
+              href={`/app/progression/view/${progression.uuid}`}
               passHref
               legacyBehavior
             >

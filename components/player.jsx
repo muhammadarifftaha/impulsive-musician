@@ -11,6 +11,7 @@ import { Button } from "react-bootstrap";
 const Octavian = require("octavian");
 
 function Player({ chords, tempo, audioPlayer, displayToasts }) {
+  const [playDisabled, setPlayDisabled] = useState(true);
   const [first, second, third, fourth] = chords;
   const interval = ((60 * 1000) / tempo) * 4;
   const timeOut = {
@@ -75,6 +76,18 @@ function Player({ chords, tempo, audioPlayer, displayToasts }) {
       timeOut.timeout1();
     }
   }
+  useEffect(() => {
+    if (
+      first.note === null ||
+      second.note === null ||
+      third.note === null ||
+      fourth.note === null
+    ) {
+      setPlayDisabled(true);
+    } else {
+      setPlayDisabled(false);
+    }
+  });
 
   useEffect(() => () => {
     function stopPlayer() {
@@ -88,11 +101,12 @@ function Player({ chords, tempo, audioPlayer, displayToasts }) {
 
   return (
     <>
-      <Button variant="outline-primary" onClick={startPlayer}>
+      <Button
+        variant="outline-primary"
+        onClick={startPlayer}
+        disabled={playDisabled}
+      >
         Play <FontAwesomeIcon icon={faPlayCircle} />
-      </Button>
-      <Button variant="outline-secondary">
-        Pause <FontAwesomeIcon icon={faCirclePause} />
       </Button>
       <Button variant="outline-danger" onClick={stopPlayer}>
         Stop <FontAwesomeIcon icon={faStopCircle} />

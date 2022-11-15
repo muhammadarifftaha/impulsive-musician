@@ -158,207 +158,200 @@ export default function Register() {
         className="d-flex flex-column justify-content-center align-items-start flex-fill"
         id="users-container"
       >
-        <Container className="d-flex flex-column justify-content-center flex-fill text-start">
+        <Container
+          className="d-flex flex-column justify-content-center  text-start flex-lg-fill"
+          id="form-container"
+        >
           <h3 className="ms-3">Register/Sign In</h3>
-          <Container fluid className="d-flex flex-row gap-2 w-80">
-            <Container>
-              {loggingIn ? (
-                <>{/* CODE STUFF FOR LOGGINg IN ANIMATION HERE */}</>
-              ) : showForm ? (
-                newUser ? (
-                  <Form
-                    className="my-3"
-                    onSubmit={createUser}
-                    id="register-form"
-                  >
-                    <p>
-                      Welcome! Fill in the form below to create an account with
-                      Impulsive Musician.
-                    </p>
-                    <FloatingLabel
-                      label="Email Address"
-                      controlId="email"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        autoComplete="email"
-                        type="email"
-                        placeholder="Email Address"
-                        onChange={handleUserEmail}
-                        value={userData.email}
-                        disabled
-                      />
-                    </FloatingLabel>
-                    <FloatingLabel
-                      controlId="name"
-                      label="Name"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        autoComplete="name"
-                        type="text"
-                        placeholder="Name"
-                        onChange={handleUserData}
-                        value={userData.name}
-                        required
-                      />
-                    </FloatingLabel>
-                    <FloatingLabel
-                      controlId="password"
-                      label="Create new password"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        autoComplete="new-password"
-                        type="password"
-                        placeholder="Create new password"
-                        minLength="8"
-                        onChange={handleUserData}
-                        onBlur={validatePassword}
-                        value={userData.password}
-                        isInvalid={passwordMismatch}
-                        isValid={passwordMatch}
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Password doesn&apos;t match
-                      </Form.Control.Feedback>
-                    </FloatingLabel>
-                    <FloatingLabel
-                      controlId="repassword"
-                      label="Confirm password"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        autoComplete="new-password"
-                        type="password"
-                        placeholder="Confirm Password"
-                        minLength="8"
-                        onChange={handleRepassword}
-                        onBlur={validatePassword}
-                        value={repassword}
-                        isInvalid={passwordMismatch}
-                        isValid={passwordMatch}
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Password doesn&apos;t match
-                      </Form.Control.Feedback>
-                    </FloatingLabel>
-                    <Container className="d-flex justify-content-center gap-2">
-                      <Button
-                        className="flex-fill"
-                        type="submit"
-                        disabled={submitDisabled}
-                      >
-                        Register
-                      </Button>
-                      <Button
-                        className="flex-fill"
-                        variant="outline-danger"
-                        onClick={() => setShowForm(false)}
-                      >
-                        Back
-                      </Button>
-                    </Container>
-                  </Form>
-                ) : (
-                  <Form
-                    noValidate
-                    validated={validated}
-                    className="my-3"
-                    id="login-form"
-                  >
-                    {duplicate ? (
-                      <p>
-                        Sorry, {userData.name}. You already have an account with
-                        us. Let&apos;s get you signed in instead.
-                      </p>
-                    ) : (
-                      <p>
-                        Welcome back, {userData.name}! Let&apos;s get you signed
-                        in.
-                      </p>
-                    )}
-                    <FloatingLabel
-                      label="Email Address"
-                      controlId="email"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        autoComplete="email"
-                        type="email"
-                        placeholder="Email Address"
-                        onChange={handleUserData}
-                        value={userData.email}
-                        disabled
-                      />
-                    </FloatingLabel>
-                    <FloatingLabel
-                      controlId="password"
-                      label="Password"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        autoComplete="current-password"
-                        type="password"
-                        placeholder="Password"
-                        minLength="8"
-                        onChange={handleUserData}
-                        isInvalid={wrongPassword}
-                        value={userData.password}
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Wrong Password. Please retype your password.
-                      </Form.Control.Feedback>
-                    </FloatingLabel>
-                    <Container className="d-flex justify-content-center gap-2">
-                      <Button
-                        className="flex-fill"
-                        type="button"
-                        onClick={loginUser}
-                      >
-                        Login
-                      </Button>
-                      <Button
-                        className="flex-fill"
-                        variant="outline-danger"
-                        onClick={() => setShowForm(false)}
-                      >
-                        Back
-                      </Button>
-                    </Container>
-                  </Form>
-                )
-              ) : (
-                <Form
-                  className="align-self-center mt-3 mb-5 d-flex flex-column gap-3
-                "
-                >
-                  <p className="m-0">
-                    Hi, there. Let&apos;s get you started with Impulsive
-                    Musician. Please enter your email address and we&apos;ll
-                    check if you have an account with us.
+          <Container className="d-flex flex-row gap-2 w-80">
+            {loggingIn ? (
+              <>{/* CODE STUFF FOR LOGGINg IN ANIMATION HERE */}</>
+            ) : showForm ? (
+              newUser ? (
+                <Form className="my-3" onSubmit={createUser} id="register-form">
+                  <p>
+                    Welcome! Fill in the form below to create an account with
+                    Impulsive Musician.
                   </p>
-
-                  <Form.FloatingLabel controlId="email" label="Email Address">
+                  <FloatingLabel
+                    label="Email Address"
+                    controlId="email"
+                    className="mb-3"
+                  >
                     <Form.Control
+                      autoComplete="email"
                       type="email"
                       placeholder="Email Address"
                       onChange={handleUserEmail}
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                       value={userData.email}
-                      isInvalid={emailInvalid}
-                      onBlur={checkEmail}
+                      disabled
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel controlId="name" label="Name" className="mb-3">
+                    <Form.Control
+                      autoComplete="name"
+                      type="text"
+                      placeholder="Name"
+                      onChange={handleUserData}
+                      value={userData.name}
+                      required
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    controlId="password"
+                    label="Create new password"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      autoComplete="new-password"
+                      type="password"
+                      placeholder="Create new password"
+                      minLength="8"
+                      onChange={handleUserData}
+                      onBlur={validatePassword}
+                      value={userData.password}
+                      isInvalid={passwordMismatch}
+                      isValid={passwordMatch}
+                      required
                     />
                     <Form.Control.Feedback type="invalid">
-                      Please retype a valid email.
+                      Password doesn&apos;t match
                     </Form.Control.Feedback>
-                  </Form.FloatingLabel>
+                  </FloatingLabel>
+                  <FloatingLabel
+                    controlId="repassword"
+                    label="Confirm password"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      autoComplete="new-password"
+                      type="password"
+                      placeholder="Confirm Password"
+                      minLength="8"
+                      onChange={handleRepassword}
+                      onBlur={validatePassword}
+                      value={repassword}
+                      isInvalid={passwordMismatch}
+                      isValid={passwordMatch}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Password doesn&apos;t match
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
+                  <Container className="d-flex justify-content-center gap-2">
+                    <Button
+                      className="flex-fill"
+                      type="submit"
+                      disabled={submitDisabled}
+                    >
+                      Register
+                    </Button>
+                    <Button
+                      className="flex-fill"
+                      variant="outline-danger"
+                      onClick={() => setShowForm(false)}
+                    >
+                      Back
+                    </Button>
+                  </Container>
                 </Form>
-              )}
-            </Container>
+              ) : (
+                <Form
+                  noValidate
+                  validated={validated}
+                  className="my-3"
+                  id="login-form"
+                >
+                  {duplicate ? (
+                    <p>
+                      Sorry, {userData.name}. You already have an account with
+                      us. Let&apos;s get you signed in instead.
+                    </p>
+                  ) : (
+                    <p>
+                      Welcome back, {userData.name}! Let&apos;s get you signed
+                      in.
+                    </p>
+                  )}
+                  <FloatingLabel
+                    label="Email Address"
+                    controlId="email"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      autoComplete="email"
+                      type="email"
+                      placeholder="Email Address"
+                      onChange={handleUserData}
+                      value={userData.email}
+                      disabled
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    controlId="password"
+                    label="Password"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      autoComplete="current-password"
+                      type="password"
+                      placeholder="Password"
+                      minLength="8"
+                      onChange={handleUserData}
+                      isInvalid={wrongPassword}
+                      value={userData.password}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Wrong Password. Please retype your password.
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
+                  <Container className="d-flex justify-content-center gap-2">
+                    <Button
+                      className="flex-fill"
+                      type="button"
+                      onClick={loginUser}
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      className="flex-fill"
+                      variant="outline-danger"
+                      onClick={() => setShowForm(false)}
+                    >
+                      Back
+                    </Button>
+                  </Container>
+                </Form>
+              )
+            ) : (
+              <Form
+                className="align-self-center mt-3 mb-5 d-flex flex-column gap-3
+                "
+              >
+                <p className="m-0">
+                  Hi, there. Let&apos;s get you started with Impulsive Musician.
+                  Please enter your email address and we&apos;ll check if you
+                  have an account with us.
+                </p>
+
+                <Form.FloatingLabel controlId="email" label="Email Address">
+                  <Form.Control
+                    type="email"
+                    placeholder="Email Address"
+                    onChange={handleUserEmail}
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    value={userData.email}
+                    isInvalid={emailInvalid}
+                    onBlur={checkEmail}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please retype a valid email.
+                  </Form.Control.Feedback>
+                </Form.FloatingLabel>
+              </Form>
+            )}
           </Container>
         </Container>
       </Container>

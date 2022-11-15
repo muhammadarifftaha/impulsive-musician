@@ -4,7 +4,7 @@ import Head from "next/head";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Button, Card, Container, Spinner } from "react-bootstrap";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardCards from "../../components/dashboardCards";
@@ -24,7 +24,8 @@ function Dashboard() {
   const [userProgression, setUserProgression] = useState("");
 
   async function fetchUserProgressions() {
-    const userID = await session.session.user.uuid;
+    const { session } = await getSession();
+    const { uuid: userID } = session.user;
 
     return await axios({
       url: `/api/app/${userID}`,
@@ -37,7 +38,7 @@ function Dashboard() {
   }
 
   useEffect(() => {
-    if (reload && session) {
+    if (reload && (session || session.session)) {
       setUserProgressionsLoaded(false);
       fetchUserProgressions().then((data) => {
         setUserProgression(data);
@@ -57,21 +58,25 @@ function Dashboard() {
       <Container
         fluid
         className="d-flex flex-column justify-content-start align-items-center flex-fill py-5 w-80 bg-white"
+        id="dashboard"
       >
         <h3 className="w-80 my-3">Dashboard</h3>
         <Container className="d-flex w-80 justify-content-between my-4">
           <h5>Your Progressions</h5>
           <Link href="/app/progression/create" passHref legacyBehavior>
-            <Button>
-              <FontAwesomeIcon icon={faPlusCircle} /> Create New
+            <Button id="create-button">
+              <FontAwesomeIcon icon={faPlusCircle} />
             </Button>
           </Link>
         </Container>
-        <Container className="d-flex justify-content-start align-items-center collection gap-3">
+        <Container
+          className="d-flex justify-content-start align-items-center gap-3"
+          id="progressions"
+        >
           {userProgressionsLoaded ? (
             <Container
               fluid
-              className="d-flex flex-row justify-content-evenly flex-wrap align-items-stretch gap-4"
+              className="d-flex flex-column flex-md-row  justify-content-evenly flex-wrap align-items-stretch gap-4"
             >
               {userProgression !== undefined ? (
                 <>
@@ -84,39 +89,22 @@ function Dashboard() {
                       />
                     );
                   })}
-                  <Card className="w-30 align-self-stretch">
-                    <Card.Body className="d-flex flex-column justify-content-center align-items-center gap-2">
-                      <Card.Title>Create a new progresssion</Card.Title>
-                      <Link
-                        href="/app/progression/create"
-                        passHref
-                        legacyBehavior
-                      >
-                        <Button
-                          variant="outline-primary"
-                          size="lg"
-                          className=""
-                        >
-                          <FontAwesomeIcon icon={faPlusCircle} />
-                        </Button>
-                      </Link>
-                    </Card.Body>
-                  </Card>
                 </>
               ) : (
-                <Container
-                  fluid
-                  className="d-flex justify-content-center align-items-center"
-                >
-                  <p>You don&apos;t have any progressions yet</p>
-                  <p>Create one now</p>
-                  <Link href="/app/progressions/create" passHref legacyBehavior>
-                    <Button>
+                <></>
+              )}
+              <Card className="w-30 align-self-stretch">
+                <Card.Body className="d-flex flex-column justify-content-center align-items-center gap-2">
+                  <Card.Title className="text-center">
+                    Create a new progresssion
+                  </Card.Title>
+                  <Link href="/app/progression/create" passHref legacyBehavior>
+                    <Button variant="outline-primary" size="lg" className="">
                       <FontAwesomeIcon icon={faPlusCircle} />
                     </Button>
                   </Link>
-                </Container>
-              )}
+                </Card.Body>
+              </Card>
             </Container>
           ) : (
             <Container
