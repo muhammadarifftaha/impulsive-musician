@@ -12,7 +12,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (session || session !== null) {
+    if (session && Object.keys(session).length > 0) {
       router.push("/app");
     }
   }, [router, session]);
