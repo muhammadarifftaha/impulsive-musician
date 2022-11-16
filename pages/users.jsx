@@ -143,7 +143,7 @@ export default function Register() {
   }
 
   useEffect(() => {
-    if (session) {
+    if (session && Object.keys(session).length >= 0) {
       router.push("/app");
     }
   }, [router, session]);

@@ -30,7 +30,7 @@ export default function Header() {
   }
 
   useEffect(() => {
-    if (!session) {
+    if (!session || Object.keys(session).length <= 0) {
       userLoggedOut();
     } else {
       userLoggedIn();
