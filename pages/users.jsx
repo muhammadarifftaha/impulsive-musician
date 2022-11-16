@@ -4,7 +4,6 @@ import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 
 export default function Register() {
   const [newUser, setNewUser] = useState("");
@@ -141,12 +140,6 @@ export default function Register() {
       // console.log(session);
     }
   }
-
-  useEffect(() => {
-    if (session && Object.keys(session).length >= 0) {
-      router.push("/app");
-    }
-  }, [router, session]);
 
   return (
     <>
