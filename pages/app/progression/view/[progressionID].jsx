@@ -41,14 +41,19 @@ function Edit() {
       octave: null,
     },
   ]);
-  const [progressionData, setProgressionData] = useState({});
+  const [progressionData, setProgressionData] = useState({
+    name: "",
+    instrument: "acoustic_grand_piano",
+    tempo: 120,
+    uuid: 0,
+  });
   const [username, setUsername] = useState("initialState");
   const [audioPlayer, setAudioPlayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
 
   async function fetchData() {
     const data = await axios({
-      url: `http://localhost:3000/api/app/progression/${progressionID}`,
+      url: `/api/app/progression/${progressionID}`,
       method: "GET",
     })
       .then((res) => {
@@ -58,7 +63,7 @@ function Edit() {
       })
       .then(async (data) => {
         const userData = await axios({
-          url: `http://localhost:3000/api/findUser/${data.userID}`,
+          url: `/api/findUser/${data.userID}`,
           method: "GET",
         })
           .then((res) => {
@@ -103,7 +108,6 @@ function Edit() {
               name: name,
               tempo: tempo,
               uuid: uuid,
-              chords: chords,
             });
             setSelectedChords([...chords]);
           } else {

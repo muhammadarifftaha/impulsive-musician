@@ -11,44 +11,44 @@ import DashboardCards from "../../components/dashboardCards";
 
 function Dashboard() {
   const router = useRouter();
-  const { status, data: session } = useSession({
+  const { status, data: sessionData } = useSession({
     required: true,
     onUnauthenticated() {
-      if (!session) {
+      if (!sessionData || Object.keys(sessionData).length <= 0) {
         router.push("/users");
       }
     },
   });
+
   const [userProgressionsLoaded, setUserProgressionsLoaded] = useState(false);
   const [reload, setReload] = useState(true);
   const [userProgression, setUserProgression] = useState("");
 
-  async function fetchUserProgressions() {
-    const { session } = await getSession();
-    const { uuid: userID } = session.user;
-
-    return await axios({
-      url: `/api/app/${userID}`,
-      method: "get",
-    })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => console.log(err));
-  }
-
   useEffect(() => {
-    if (reload && (session || session.session)) {
+    async function fetchUserProgressions(userID) {
+      return await axios({
+        url: `/api/app/${userID}`,
+        method: "get",
+      })
+        .then((res) => {
+          console.log(res);
+          return res.data;
+        })
+        .catch((err) => console.log(err));
+    }
+
+    console.log("inside useeffect", sessionData);
+    if (reload && sessionData && Object.keys(sessionData).length > 0) {
+      const userID = sessionData.session.user.uuid;
       setUserProgressionsLoaded(false);
-      fetchUserProgressions().then((data) => {
+      fetchUserProgressions(userID).then((data) => {
         setUserProgression(data);
         setUserProgressionsLoaded(true);
         setReload(false);
       });
     }
     return;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload, session]);
+  }, [sessionData, reload]);
 
   return (
     <>
