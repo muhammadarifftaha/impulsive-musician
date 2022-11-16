@@ -32,7 +32,7 @@ function Dashboard() {
         .catch((err) => console.log(err));
     }
 
-    if (status != loading || status != "authenticated") {
+    if (status != "loading" || status != "authenticated") {
       router.push("/");
     }
 

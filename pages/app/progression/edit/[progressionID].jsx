@@ -211,7 +211,7 @@ export default function Edit() {
           displayToasts("ServerError");
         });
     }
-    if (status != loading || status != "authenticated") {
+    if (status != "loading" || status != "authenticated") {
       router.push("/");
     }
     if (session && reload && progressionData.uuid === "") {

@@ -227,7 +227,7 @@ export default function Create() {
   }, [progressionData.instrument, octave]);
 
   useEffect(() => {
-    if (status != loading || status != "authenticated") {
+    if (status != "loading" || status != "authenticated") {
       router.push("/");
     }
   });
