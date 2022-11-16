@@ -33,10 +33,6 @@ export default function Edit() {
     data: { session },
   } = useSession({
     required: true,
-    onUnauthenticated() {
-      setNotSaved(false);
-      router.push("/users");
-    },
   });
   const [userProgressionsLoaded, setUserProgressionsLoaded] = useState(false);
   const [reload, setReload] = useState(true);

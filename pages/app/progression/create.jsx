@@ -32,10 +32,6 @@ export default function Create() {
     data: { session },
   } = useSession({
     required: true,
-    onUnauthenticated() {
-      setNotSaved(false);
-      router.push("/users");
-    },
   });
 
   const [selectedChords, setSelectedChords] = useState([

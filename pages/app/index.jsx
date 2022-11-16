@@ -13,11 +13,6 @@ function Dashboard() {
   const router = useRouter();
   const { status, data: sessionData } = useSession({
     required: true,
-    // onUnauthenticated() {
-    //   if (!sessionData || Object.keys(sessionData).length <= 0) {
-    //     router.push("/users");
-    //   }
-    // },
   });
 
   const [userProgressionsLoaded, setUserProgressionsLoaded] = useState(false);
