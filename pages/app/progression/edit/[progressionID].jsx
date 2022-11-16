@@ -211,9 +211,7 @@ export default function Edit() {
           displayToasts("ServerError");
         });
     }
-    if (status != "loading" || status != "authenticated") {
-      router.push("/");
-    }
+
     if (session && reload && progressionData.uuid === "") {
       fetchProgression().then((data) => {
         const { name, tempo, instrument, uuid, chords } = data;

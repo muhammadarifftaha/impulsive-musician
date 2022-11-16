@@ -32,10 +32,6 @@ function Dashboard() {
         .catch((err) => console.log(err));
     }
 
-    if (status != "loading" || status != "authenticated") {
-      router.push("/");
-    }
-
     console.log("inside useeffect", sessionData);
     if (reload && sessionData && Object.keys(sessionData).length > 0) {
       const userID = sessionData.session.user.uuid;
